@@ -10,7 +10,7 @@ Open `index.html` in any modern browser. No server, install or internet connecti
 ## Features
 
 - **Fields:** Full Name, Email Address, Phone Number, Password, Confirm Password, a Terms & Conditions checkbox and a Create Account button.
-- **Responsive:** a mobile-first layout that fills small screens and becomes a centered card (max 420px wide) on larger ones.
+- **Responsive:** on wide screens the Wiya logo panel sits on the left of the form; on phones it moves above the form and everything stacks in one column.
 - **Validation:** every field is checked, and its error message appears right under it.
   - A field is checked when you leave it, and its error clears as soon as you fix it.
   - Submitting with an invalid field is blocked: all errors show at once and focus moves to the first one.
@@ -33,7 +33,8 @@ Open `index.html` in any modern browser. No server, install or internet connecti
 ## Project structure
 
 ```
-index.html   Form markup
-styles.css   Layout and theme (colors and sizes are CSS variables in :root)
-script.js    Validation, show/hide password and the demo success message
+index.html     Form markup
+styles.css     Layout and theme (colors and sizes are CSS variables in :root)
+script.js      Validation, show/hide password and the demo success message
+wiya-logo.jpg  The Wiya logo shown in the logo panel
 ```
