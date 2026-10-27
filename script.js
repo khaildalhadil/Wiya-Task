@@ -1,6 +1,7 @@
 // Registration form: validation runs in the browser only, nothing is sent or stored.
 
 const form = document.getElementById('register-form');
+const successMessage = document.getElementById('success-message');
 
 const NAME_PATTERN = /^[\p{L}\p{M} '-]{3,}$/u; // letters in any language, spaces, ' and -
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/; // name@domain.tld
@@ -76,10 +77,21 @@ form.addEventListener('input', (event) => {
 
 form.addEventListener('submit', (event) => {
   event.preventDefault(); // no backend: the form is never actually sent
+  successMessage.textContent = '';
 
   // Validate every field (so all errors show at once) and keep the invalid ones.
   const invalidFields = fields.filter((field) => !validateField(field));
   if (invalidFields.length > 0) {
     invalidFields[0].focus(); // take the user straight to the first problem
+    return;
   }
+
+  // Demo success: nothing is sent or saved anywhere.
+  const firstName = form.elements.fullName.value.trim().split(' ')[0];
+  successMessage.textContent = `Welcome, ${firstName}! Your account has been created (demo only, nothing was sent or saved).`;
+  successMessage.scrollIntoView({ block: 'nearest' }); // keep it visible on small screens
+
+  // Clear the form so the password doesn't stay on the page, and start fresh with no field marked as checked.
+  form.reset();
+  fields.forEach((field) => field.removeAttribute('aria-invalid'));
 });
