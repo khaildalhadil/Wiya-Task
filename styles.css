@@ -94,6 +94,36 @@ label {
   border-color: var(--color-error);
 }
 
+/* Password fields: the Show/Hide button sits inside the input, on the right. */
+.password-wrapper {
+  position: relative;
+}
+
+.field .password-wrapper input {
+  padding-right: 64px; /* room for the button, so the text never runs under it */
+}
+
+.toggle-password {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  bottom: 1px; /* as tall as the input inside its border: easy to tap */
+  padding: 0 12px;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: none;
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+/* Edge adds its own eye icon to password fields; hide it so there is only one Show/Hide button. */
+input::-ms-reveal {
+  display: none;
+}
+
 :focus-visible {
   outline: 3px solid var(--color-focus);
   outline-offset: 1px;

@@ -37,16 +37,22 @@
 
       <div class="field">
         <label for="password">Password</label>
-        <input id="password" name="password" type="password" autocomplete="new-password"
-               required aria-describedby="password-hint password-error">
+        <div class="password-wrapper">
+          <input id="password" name="password" type="password" autocomplete="new-password"
+                 required aria-describedby="password-hint password-error">
+          <button type="button" class="toggle-password" aria-controls="password">Show</button>
+        </div>
         <p class="hint" id="password-hint">At least 8 characters, with letters and numbers.</p>
         <p class="error" id="password-error"></p>
       </div>
 
       <div class="field">
         <label for="confirmPassword">Confirm Password</label>
-        <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password"
-               required aria-describedby="confirmPassword-error">
+        <div class="password-wrapper">
+          <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password"
+                 required aria-describedby="confirmPassword-error">
+          <button type="button" class="toggle-password" aria-controls="confirmPassword">Show</button>
+        </div>
         <p class="error" id="confirmPassword-error"></p>
       </div>
 

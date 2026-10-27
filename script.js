@@ -60,9 +60,14 @@ function validateField(input) {
   return !message;
 }
 
-// Check a field when the user leaves it.
+// Check a field when the user leaves it. A password field and its Show/Hide button count as one stop,
+// so moving between the two isn't leaving the field.
 form.addEventListener('focusout', (event) => {
-  if (fields.includes(event.target)) validateField(event.target);
+  const wrapper = event.target.closest('.password-wrapper');
+  if (wrapper?.contains(event.relatedTarget)) return;
+
+  const field = wrapper ? wrapper.querySelector('input') : event.target;
+  if (fields.includes(field)) validateField(field);
 });
 
 // While typing, re-check a field that shows an error, so the error clears as soon as it is fixed.
@@ -73,6 +78,25 @@ form.addEventListener('input', (event) => {
   // A new password can break (or fix) a confirmation that was already checked.
   const confirm = form.elements.confirmPassword;
   if (input.name === 'password' && confirm.hasAttribute('aria-invalid')) validateField(confirm);
+});
+
+// Show/Hide password: each button controls the field named in its aria-controls.
+const passwordToggles = form.querySelectorAll('.toggle-password');
+
+// Shows the password as plain text (visible = true) or hides it again, and updates the button text to match.
+function setPasswordVisible(button, visible) {
+  const input = document.getElementById(button.getAttribute('aria-controls'));
+  input.type = visible ? 'text' : 'password';
+  button.textContent = visible ? 'Hide' : 'Show';
+}
+
+passwordToggles.forEach((button) => {
+  const input = document.getElementById(button.getAttribute('aria-controls'));
+  button.addEventListener('click', () => setPasswordVisible(button, input.type === 'password'));
+
+  // A click or tap would move the focus to the button. Keep it in the field instead,
+  // so the field isn't "left" (no early error) and the keyboard stays open on phones.
+  button.addEventListener('mousedown', (event) => event.preventDefault());
 });
 
 form.addEventListener('submit', (event) => {
@@ -94,4 +118,5 @@ form.addEventListener('submit', (event) => {
   // Clear the form so the password doesn't stay on the page, and start fresh with no field marked as checked.
   form.reset();
   fields.forEach((field) => field.removeAttribute('aria-invalid'));
+  passwordToggles.forEach((button) => setPasswordVisible(button, false)); // reset() doesn't turn type="text" back
 });
