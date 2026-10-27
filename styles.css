@@ -49,6 +49,10 @@ h1 {
   color: var(--color-muted);
 }
 
+.field {
+  margin-bottom: 8px;
+}
+
 label {
   display: block;
   margin-bottom: 6px;
@@ -68,6 +72,10 @@ label {
 
 .field input:focus {
   border-color: var(--color-primary);
+}
+
+.field input[aria-invalid="true"] {
+  border-color: var(--color-error);
 }
 
 :focus-visible {
